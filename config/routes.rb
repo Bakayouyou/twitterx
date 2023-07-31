@@ -13,8 +13,6 @@ Rails.application.routes.draw do
   end
 
   # App routes
-  resources :posts
-  resources :lessons, only: :index
-
-  root "pages#home"
+  resources :tweets
+  root "tweets#index"
 end

@@ -26,7 +26,7 @@ module StylesHelper
       variants: {
         style: {
           secondary: "bg-white text-gray-600 border border-gray-200 hover:border-gray-500",
-          primary: "bg-slate-800 hover:bg-opacity-90 text-white"
+          primary: "bg-blue-800 hover:bg-opacity-90 text-white"
         },
         fullwidth: "w-full justify-center",
         nowrap: "whitespace-nowrap"

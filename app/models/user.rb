@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :email_verification_tokens, dependent: :destroy
   has_many :password_reset_tokens, dependent: :destroy
   has_many :sessions, dependent: :destroy
-  has_many :posts, dependent: :destroy
+  has_many :tweets, dependent: :destroy
 
   validates :username, presence: true, uniqueness: true, length: { minimum: 3 }
   validates :first_name, :last_name, presence: true
