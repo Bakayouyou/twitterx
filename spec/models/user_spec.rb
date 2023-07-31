@@ -10,6 +10,9 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_presence_of :last_name }
   it { is_expected.to validate_presence_of :email }
 
+  it { is_expected.to validate_presence_of :username }
+
+
   describe "#name" do
     it "concatenates first and last name" do
       user = User.new(first_name: "John", last_name: "Doe")
