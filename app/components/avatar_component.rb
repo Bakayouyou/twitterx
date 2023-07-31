@@ -1,10 +1,19 @@
 # frozen_string_literal: true
 
 class AvatarComponent < ViewComponent::Base
-  attr_reader :user
+  attr_reader :user, :size
 
-  def initialize(user:)
+  def initialize(user:, size: "h-12 w-12")
     @user = user
+    @size = size
+  end
+
+  def avatar?
+    user.avatar.attached?
+  end
+
+  def avatar_url
+    url_for(user.avatar)
   end
 
   def initials

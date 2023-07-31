@@ -14,5 +14,12 @@ Rails.application.routes.draw do
 
   # App routes
   resources :tweets
+  resources :profiles, param: :username, only: %i[edit update]
+
+  # API routes
+  get "/close_modal", to: "pages#close_modal", as: :close_modal
+  get "/:username", to: "profiles#show", as: :show_profile
+
   root "tweets#index"
+
 end

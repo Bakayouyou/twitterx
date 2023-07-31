@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
   has_many :tweets, dependent: :destroy
 
+  has_one_attached :avatar
+
   validates :username, presence: true, uniqueness: true, length: { minimum: 3 }
   validates :first_name, :last_name, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
