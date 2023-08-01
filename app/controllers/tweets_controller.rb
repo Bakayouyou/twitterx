@@ -13,6 +13,7 @@ class TweetsController < ApplicationController
   def new
   end
 
+
   def create
     # Crée un nouvel objet tweet associé à l'utilisateur actuellement connecté (Current.user)
     tweet = Current.user.tweets.new(tweet_params)
@@ -36,7 +37,7 @@ class TweetsController < ApplicationController
         turbo_stream.replace(
           "tweet_form",
           partial: "tweets/form",
-          locals: { tweet: Tweet.new, new_content: true, remote: true, placeholder: "" }
+          locals: { tweet: Tweet.new, new_content: true }
         )
       ])
     else
