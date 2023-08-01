@@ -14,13 +14,36 @@ class TweetsController < ApplicationController
   end
 
   def create
-    @tweet = Current.user.tweets.new(tweet_params)
-    if @tweet.save!
-      redirect_to tweets_path, notice: "Tweet was successfully created."
+    # Crée un nouvel objet tweet associé à l'utilisateur actuellement connecté (Current.user)
+    tweet = Current.user.tweets.new(tweet_params)
+
+    # Vérifie si le tweet peut être enregistré dans la base de données
+    if tweet.save
+      # Si le tweet est enregistré avec succès, retourne une réponse Turbo Streams.
+      # Turbo Streams est un mécanisme de Rails pour mettre à jour dynamiquement le contenu de la page côté client sans recharger toute la page.
+
+      render(turbo_stream: [
+        # Ajoute le nouveau tweet au début de la liste des tweets dans la vue actuelle
+        turbo_stream.prepend(
+          "tweets",
+          partial: "tweets/tweet",
+          locals: {
+            tweet: tweet,
+            new_content: true
+          }
+        ),
+        # Remplace le formulaire de création de tweet dans la vue actuelle pour permettre une nouvelle soumission sans recharger la page entière.
+        turbo_stream.replace(
+          "tweet_form",
+          partial: "tweets/form",
+          locals: { tweet: Tweet.new, new_content: true, remote: true, placeholder: "" }
+        )
+      ])
     else
-      redirect_to tweets_path, notice: "Tweet was not created."
+      redirect_to root_path, alert: "Tweet failed, try again."
     end
   end
+
 
   private
 
