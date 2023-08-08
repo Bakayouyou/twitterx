@@ -1,11 +1,11 @@
 class RetweetsController < ApplicationController
-
+  skip_before_action :verify_authenticity_token
   before_action :set_tweet
 
   def create
-    retweet = Tweet.create!(retweet_params)
-    raise
-    redirect_to retweet, notice: "Retweeted"
+    @user = Tweet.find(params[:tweet_id]).user
+    @retweet = Tweet.create!(retweet_params)
+    redirect_to root_path, notice: "Retweeted"
   end
 
   private
@@ -16,7 +16,7 @@ class RetweetsController < ApplicationController
 
   def retweet_params
     {
-      user: params[:user],
+      user: Current.user,
       retweet: @tweet,
       body: @tweet.body
     }

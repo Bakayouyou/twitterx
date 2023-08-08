@@ -3,7 +3,8 @@ class Tweet < ApplicationRecord
   belongs_to :retweet, class_name: "Tweet", optional: true
 
   has_many :likes, dependent: :destroy
-  has_many :retweet, class_name: "Tweet", foreign_key: "retweet_id", dependent: :destroy
+  has_many :retweets, class_name: "Tweet", foreign_key: :retweet_id
+
 
   validates :body, presence: true
 
@@ -13,6 +14,10 @@ class Tweet < ApplicationRecord
 
   def retweets_count
     retweets.count
+  end
+
+  def retweet?
+    retweet_id.present?
   end
 
 end

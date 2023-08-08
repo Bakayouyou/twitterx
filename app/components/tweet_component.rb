@@ -7,4 +7,8 @@ class TweetComponent < ViewComponent::Base
     @tweet = tweet
   end
 
+  def retweet?
+    tweet.retweet?
+  end
+  
 end
